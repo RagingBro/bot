@@ -1,54 +1,48 @@
-const path = require("path");
-
-// Require the fastify framework and instantiate it
-const fastify = require("fastify")({
-  // set this to true for detailed logging:
-  logger: false,
-});
-
-// Setup our static files
-fastify.register(require("@fastify/static"), {
-  root: path.join(__dirname, "public"),
-  prefix: "/", // optional: default '/'
-});
-
-// fastify-formbody lets us parse incoming forms
-fastify.register(require("@fastify/formbody"));
-
-// point-of-view is a templating manager for fastify
-fastify.register(require("@fastify/view"), {
-  engine: {
-    handlebars: require("handlebars"),
+const WebSocket = require('ws');
+const fetch = require('node-fetch');
+// config
+const token = 'YOUR_BOT_ACCESS_TOKEN';
+const socket = new WebSocket('wss://www.guilded.gg/websocket/v1', {
+  headers: {
+    Authorization: `Bearer ${token}`
   },
 });
-
-// Our main GET home page route, pulls from src/pages/index.hbs
-fastify.get("/", function (request, reply) {
-  // params is an object we'll pass to our handlebars template
-  let params = {
-    greeting: "Hello Node!",
-  };
-  // request.query.paramName <-- a querystring example
-  return reply.view("/src/pages/index.hbs", params);
+socket.on('open', function() {
+  console.log('connected to Guilded!');
 });
-
-// A POST route to handle form submissions
-fastify.post("/", function (request, reply) {
-  let params = {
-    greeting: "Hello Form!",
-  };
-  // request.body.paramName <-- a form post example
-  return reply.view("/src/pages/index.hbs", params);
-});
-
-// Run the server and report out to the logs
-fastify.listen(
-  { port: process.env.PORT, host: "0.0.0.0" },
-  function (err, address) {
-    if (err) {
-      console.error(err);
-      process.exit(1);
+socket.on('message', function incoming(data) {
+  const json = JSON.parse(data);
+  const {t: eventType, d: eventData} = json;
+  console.log({eventType, eventData});
+  if (eventType === 'ChatMessageCreated' || eventType === 'ChatMessageUpdated') {
+    const {message: {id: messageId, content, channelId}} = eventData;
+    if (content.indexOf('bad word') >= 0) {
+      // delete message containing 'bad word'
+      fetch(`https://www.guilded.gg/api/v1/channels/${channelId}/messages/${messageId}`, {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
     }
-    console.log(`Your app is listening on ${address}`);
+  } else if (eventType === 'BotServerMembershipCreated') {
+    const {server: {defaultChannelId}} = eventData;
+    // posts welcome message
+    fetch(`https://www.guilded.gg/api/v1/channels/${defaultChannelId}/messages`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        embeds: [{
+          title: "Hello!",
+          description: `If you would like to know more use the \`/help\` command.
+
+ **Links**
+[Support Server](https://www.guilded.gg/API-Official)`,
+        }]
+      }),
+    });
   }
-);
+});
