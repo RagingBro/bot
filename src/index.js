@@ -13,30 +13,12 @@ client.on("messageCreated", async (m) => {
             await m.send("TESTING!");
             break;
         }
-        case "embed": {
-            await m.send(
-                new Embed()
-                    .setTitle("This is a test title!")
-                    .setDescription("This is a test description")
-                    .setColor("GREEN")
-                    .setFooter("This is a test footer", "https://google.com/")
-                    .setTimestamp()
-                    .setURL("https://google.com")
-                    .setAuthor("Test author")
-                    .addFields([
-                        { name: "Test field 1", value: "This is a test field", inline: true },
-                        { name: "Test field 2", value: "This is a test field", inline: true },
-                        { name: "Test field 3", value: "This is a test field", inline: false },
-                    ]),
-            );
-            break;
-        }
         case "echo": {
             await m.send(args.join(" "));
             break;
         }
         case "help": {
-            await m.send(`Hello, ${m.member.displayName}!\nMy prefix is "hb!".\nMy commands are:\nhelp - You're here right now!\n`)
+            await m.send(`Hello, ${m.member.displayName}!\nMy prefix is "hb!".\nMy commands are:\nhelp - You're here right now!\ntest - Test if bot works.\necho [message] - Bot will repeat the message.`)
         }
     }
 });
