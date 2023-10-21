@@ -41,10 +41,9 @@ client.on("messageCreated", async (m) => {
                     .setColor("BLUE")
                     .addFields([
                         { name: "hb!help", value: "Show this help.", inline: false},
-                        { name: "hb!help", value: "Show this help.", inline: false},
-                        { name: "hb!help", value: "Show this help.", inline: false},
+                        { name: "hb!test", value: "Simple test command..", inline: false},
+                        { name: "hb!echo [message]", value: "Bot will say the message. Has a funny use.", inline: false},
                     ])
-            // `Hello, <@${m.member.id}>!\nMy prefix is "hb!".\nMy commands are:\nhelp - You're here right now!\ntest - Test if bot works.\necho [message] - Bot will repeat the message.`
             )
             break
         }
