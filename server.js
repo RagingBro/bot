@@ -1,4 +1,5 @@
 const WebSocket = require('ws');
+const fetch = require("node-fetch");
 // config
 const token = 'gapi_H/j0ULOM/LWroltVPYxkVWjoD6cAZTyW7W335shTG1d6/Mv8QLujaW6aeq2bKtNVacsc5vIIXjDccsvT2st+FQ==';
 const socket = new WebSocket('wss://www.guilded.gg/websocket/v1', {
