@@ -2,10 +2,10 @@
     "name": "bot-starter-js",
     "private": true,
     "version": "0.0.0",
-    "engines": "16.x",
     "description": "Example project for using the guilded.js package",
     "author": "vdemambro",
     "main": "src/index.js",
+    "engines": { "node": "16.x" },
     "scripts": {
         "start": "node src/index.js"
     },

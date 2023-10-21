@@ -35,6 +35,9 @@ client.on("messageCreated", async (m) => {
             await m.send(args.join(" "));
             break;
         }
+        case "help": {
+            await m.send(`Hello, ${m.member.displayName}!\nMy prefix is "hb!"`)
+        }
     }
 });
 
