@@ -33,11 +33,19 @@ client.on("messageCreated", async (m) => {
             );
             break;
         }
-        case "ping": {
-            await m.send(`Pong! Ping is `)
-        }
         case "help": {
-          // await m.send(`Hello, <@${m.member.id}>!\nMy prefix is "hb!".\nMy commands are:\nhelp - You're here right now!\ntest - Test if bot works.\necho [message] - Bot will repeat the message.`)
+            await m.send(
+                new Embed()
+                    .setTitle("HackerBot Help")
+                    .setDescription(`Hello, <@${m.member.id}>! My prefix is "hb!".`)
+                    .setColor("BLUE")
+                    .addFields([
+                        { name: "hb!help", value: "Show this help.", inline: false},
+                        { name: "hb!help", value: "Show this help.", inline: false},
+                        { name: "hb!help", value: "Show this help.", inline: false},
+                    ])
+            // `Hello, <@${m.member.id}>!\nMy prefix is "hb!".\nMy commands are:\nhelp - You're here right now!\ntest - Test if bot works.\necho [message] - Bot will repeat the message.`
+            )
             break
         }
     }
