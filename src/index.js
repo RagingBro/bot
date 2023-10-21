@@ -33,8 +33,12 @@ client.on("messageCreated", async (m) => {
             );
             break;
         }
+        case "ping": {
+            await m.send(`Pong! Ping is `)
+        }
         case "help": {
-            await m.send(`Hello, ${m.member.displayName}!\nMy prefix is "hb!".\nMy commands are:\nhelp - You're here right now!\ntest - Test if bot works.\necho [message] - Bot will repeat the message.`)
+          // await m.send(`Hello, <@${m.member.id}>!\nMy prefix is "hb!".\nMy commands are:\nhelp - You're here right now!\ntest - Test if bot works.\necho [message] - Bot will repeat the message.`)
+            break
         }
     }
 });
