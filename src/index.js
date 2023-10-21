@@ -22,7 +22,7 @@ client.on("messageCreated", async (m) => {
                 new Embed()
                     .setTitle("This is a test title!")
                     .setDescription("This is a test description")
-                    .setColor("GREEN")
+                    .setColor("BLUE")
                     .setTimestamp()
                     .setAuthor("Test author")
                     .addFields([
