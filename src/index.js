@@ -4,7 +4,7 @@ if (!process.env.TOKEN) throw new Error("Please supply a Guilded API token in yo
 const guilded = require("guilded.js");
 const client = new guilded.Client({ token: process.env.TOKEN });
 const prefix = process.env.PREFIX;
-const welcomeChannel = await client.channels.fetch("85cef5b9-4483-4236-9d89-9b6ca7b49c5a");
+const welcomeChannel = (async () => await client.channels.fetch("85cef5b9-4483-4236-9d89-9b6ca7b49c5a"))();
 
 client.on("messageCreated", async (m) => {
     if (m.createdByBotId || !m.content.startsWith(prefix)) return;
@@ -56,7 +56,7 @@ client.on("messageCreated", async (m) => {
     }
 });
 client.on("memberJoined", async (member) => {
-          
+          welcomeChannel
 })
 
 // client.on("debug", console.log);
