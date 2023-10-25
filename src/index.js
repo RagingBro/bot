@@ -47,6 +47,7 @@ client.on("messageCreated", async (m) => {
             )
             break
         }
+        case ""
     }
 });
 
