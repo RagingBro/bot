@@ -1,8 +1,8 @@
 require("dotenv/config");
 if (!process.env.TOKEN) throw new Error("Please supply a Guilded API token in your .env file.");
 
-const { Client, Embed } = require("guilded.js");
-const client = new Client({ token: process.env.TOKEN });
+const guilded = require("guilded.js");
+const client = new guilded.Client({ token: process.env.TOKEN });
 const prefix = process.env.PREFIX;
 
 client.on("messageCreated", async (m) => {
@@ -19,7 +19,7 @@ client.on("messageCreated", async (m) => {
         }
         case "embed": {
             await m.send(
-                new Embed()
+                new guilded.Embed()
                     .setTitle("This is a test title!")
                     .setDescription("This is a test description")
                     .setColor("BLUE")
@@ -35,7 +35,7 @@ client.on("messageCreated", async (m) => {
         }
         case "help": {
             await m.send(
-                new Embed()
+                new guilded.Embed()
                     .setTitle("HackerBot Help")
                     .setDescription(`Hello, <@${m.member.id}>! My prefix is "hb!".`)
                     .setColor("BLUE")
@@ -54,10 +54,13 @@ client.on("messageCreated", async (m) => {
       }
     }
 });
+client.on("memberJoined", async member {
+          
+})
 
 // client.on("debug", console.log);
 client.on("error", console.log);
-client.once("ready", () => console.log("Guilded bot is ready!"));
+client.once("ready", () => console.log("I'm in."));
 client.on("exit", () => console.log("Disconnected!"));
 
 client.login();
