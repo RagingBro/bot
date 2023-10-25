@@ -47,7 +47,11 @@ client.on("messageCreated", async (m) => {
             )
             break
         }
-        case ""
+      case "deletedMessageTest": {
+        await m.send("The command should delete now...")
+        await m.delete()
+        break
+      }
     }
 });
 
