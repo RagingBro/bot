@@ -4,7 +4,8 @@ if (!process.env.TOKEN) throw new Error("Please supply a Guilded API token in yo
 const guilded = require("guilded.js");
 const client = new guilded.Client({ token: process.env.TOKEN });
 const prefix = process.env.PREFIX;
-let brockAllowed = true;
+let allowedMap = new Map();
+allowedMap.set("409Rrjyd", true)
 
 client.on("messageCreated", async (m) => {
     if (m.createdByBotId || !m.content.startsWith(prefix)) return;
@@ -12,24 +13,23 @@ client.on("messageCreated", async (m) => {
     switch (commandName) {
         case "echo": {
             // args.foreach()
-            if (!(["409Rrjyd", "dJZ0M3Bd"].includes(m.member.id))) {break;}
-            if (m.member.id === "dJZ0M3Bd" & !brockAllowed) {break;}
+            if (!allowedMap) {break;}
             await m.delete();
             await m.send(args.join(" "));
             break;
         }
-        case "toggleBrock": {
-          
-            brockAllowed = !brockAllowed;
-            await m.delete();
+        case "toggle": {
+            await m.delete()
+            if (!args) {
+              await m.send("Must supply a user ID");
+            }
+            const userID = args[0]
+            const user = client.members.fetch(m.server,userID)
             await m.send(`Toggled Baystonecoast's access to ${brockAllowed}`)
             break;
         }
     }
 });
-client.on("memberJoined", async (member) => {
-          await (await client.channels.fetch("85cef5b9-4483-4236-9d89-9b6ca7b49c5a")).send(`Welcome to the HackStation server, ${member.displayName}!`)
-})
 
 // client.on("debug", console.log);
 client.on("error", console.log);
