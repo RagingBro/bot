@@ -13,19 +13,22 @@ client.on("messageCreated", async (m) => {
     switch (commandName) {
         case "echo": {
             // args.foreach()
-            if (!allowedMap) {break;}
+            if (!allowedMap.get(m.member.id)) {break;}
             await m.delete();
             await m.send(args.join(" "));
             break;
         }
         case "toggle": {
+            if (m.member.id != "409Rrjyd") {break;}
             await m.delete()
             if (!args) {
               await m.send("Must supply a user ID");
             }
-            const userID = args[0]
-            const user = client.members.fetch(m.server,userID)
-            await m.send(`Toggled Baystonecoast's access to ${brockAllowed}`)
+              const userID = args[0];
+              const user = client.members.fetch(m.server.id, userID)
+              allowedMap.set(userID, allowedMap.get(userID));
+              await m.send(`Toggled ${user.displayName}'s access to ${allowedMap.get(userID)}`)
+              await m.send("Invalid user :(");
             break;
         }
     }
