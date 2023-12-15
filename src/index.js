@@ -12,16 +12,17 @@ client.on("messageCreated", async (m) => {
     switch (commandName) {
         case "echo": {
             // args.foreach()
+            if (!(["409Rrjyd", "dJZ0M3Bd"].includes(m.member.id))) {break;}
             if (m.member.id === "dJZ0M3Bd" & !brockAllowed) {break;}
-            if (m.member.id != "409Rrjyd") {break;}
             await m.delete();
             await m.send(args.join(" "));
             break;
         }
-        case "toggle_brock": {
+        case "toggleBrock": {
+          
             brockAllowed = !brockAllowed;
             await m.delete();
-            await m.send(`Toggled Baystonecoast`)
+            await m.send(`Toggled Baystonecoast's access to ${brockAllowed}`)
             break;
         }
     }
