@@ -4,15 +4,24 @@ if (!process.env.TOKEN) throw new Error("Please supply a Guilded API token in yo
 const guilded = require("guilded.js");
 const client = new guilded.Client({ token: process.env.TOKEN });
 const prefix = process.env.PREFIX;
+let brockAllowed = true;
 
 client.on("messageCreated", async (m) => {
     if (m.createdByBotId || !m.content.startsWith(prefix)) return;
     const [commandName, ...args] = m.content.slice(prefix.length).split(" ");
     switch (commandName) {
         case "echo": {
-            if (m.member.displayName != "T") {break;}
+            // args.foreach()
+            if (m.member.id === "dJZ0M3Bd" & !brockAllowed) {break;}
+            if (m.member.id != "409Rrjyd") {break;}
             await m.delete();
             await m.send(args.join(" "));
+            break;
+        }
+        case "toggle_brock": {
+            brockAllowed = !brockAllowed;
+            await m.delete();
+            await m.send(`Toggled Baystonecoast`)
             break;
         }
     }
