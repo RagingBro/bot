@@ -6,9 +6,10 @@ const client = new guilded.Client({ token: process.env.TOKEN });
 const prefix = process.env.PREFIX;
 let allowedMap = new Map();
 allowedMap.set("409Rrjyd", true)
+allowedMap.set("d56GZg5m", true)
 
 client.on("messageCreated", async (m) => {
-    if (m.createdByBotId || !m.content.startsWith(prefix)) return;
+    if (!m.content.startsWith(prefix)) return;
     const [commandName, ...args] = m.content.slice(prefix.length).split(" ");
     switch (commandName) {
         case "echo": {
@@ -31,6 +32,9 @@ client.on("messageCreated", async (m) => {
               await m.send(`Toggled ${user.displayName}'s access to ${allowedMap.get(userID)}`);
             break;
         }
+      case "makeChannel": {
+        
+      }
     }
 });
 
