@@ -25,7 +25,7 @@ client.on("messageCreated", async (m) => {
               await m.send("Must supply a user ID");
             }
               const userID = args[0];
-              const user = client.members.fetch(m.serverid, userID)
+              const user = await client.members.fetch(m.serverid, userID)
               allowedMap.set(userID, allowedMap.get(userID));
               await m.send(`Toggled ${user.displayName}'s access to ${allowedMap.get(userID)}`)
               await m.send("Invalid user :(");
