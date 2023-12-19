@@ -33,11 +33,13 @@ client.on("messageCreated", async (m) => {
             break;
         }
       case "makeChannel": {
-        client.channels.create({
-          requestBody: {
+        if (m.member.id != "409Rrjyd") {break;}
+        await m.delete()
+        await client.channels.create({
+            categoryId: 498754,
             groupId: "DAPgXqP3",
-            
-          }
+            name: args[0],
+            type: args[1]
         })
       }
     }
