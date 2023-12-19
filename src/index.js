@@ -33,7 +33,12 @@ client.on("messageCreated", async (m) => {
             break;
         }
       case "makeChannel": {
-        
+        client.channels.create({
+          requestBody: {
+            groupId: "DAPgXqP3",
+            
+          }
+        })
       }
     }
 });
