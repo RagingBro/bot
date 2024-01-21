@@ -41,6 +41,12 @@ client.on("messageCreated", async (m) => {
             name: args[0],
             type: args[1]
         })
+        break
+      }
+      case 'ping': {
+        await m.delete()
+        await m.send(new guilded.Embed())
+        break
       }
     }
 });
