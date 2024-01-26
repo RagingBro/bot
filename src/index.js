@@ -20,7 +20,7 @@ client.on("messageCreated", async (m) => {
         break;
       }
       case 'boot': {
-        if (!()) {}
+        if (!(33263751 in await m.member.getRoles())) {}
         await m.delete()
         if (!m.mentions) {
           await m.send("Error: You must mention somebody to boot or ping everyone")
@@ -38,6 +38,9 @@ client.on("messageCreated", async (m) => {
         targetedMembers.foreach((member) => {
           client.roles.removeRoleFromMember("GjkqQz2l", member.id, 33263816)
         })
+        
+      }
+      case 'lockdown': {
         
       }
     }
