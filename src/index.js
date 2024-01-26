@@ -4,45 +4,16 @@ if (!process.env.TOKEN) throw new Error("Please supply a Guilded API token in yo
 const guilded = require("guilded.js");
 const client = new guilded.Client({ token: process.env.TOKEN });
 const prefix = process.env.PREFIX;
-let allowedMap = new Map();
-allowedMap.set("409Rrjyd", true)
-allowedMap.set("d56GZg5m", true)
 
 client.on("messageCreated", async (m) => {
     if (!m.content.startsWith(prefix)) return;
     const [commandName, ...args] = m.content.slice(prefix.length).split(" ");
     switch (commandName) {
         case "echo": {
-            // args.foreach()
-            if (!allowedMap.get(m.member.id)) {break;}
             await m.delete();
             await m.send(args.join(" "));
             break;
         }
-        case "toggle": {
-            if (m.member.id != "409Rrjyd") {break;}
-            await m.delete()
-            if (!args) {
-              await m.send("Must supply a user ID");
-            }
-              const userID = args[0];
-              let fart_club = m.serverId;
-              const user = await client.members.fetch(fart_club, userID);
-              allowedMap.set(userID, !allowedMap.get(userID));
-              await m.send(`Toggled ${user.displayName}'s access to ${allowedMap.get(userID)}`);
-            break;
-        }
-      case "makeChannel": {
-        if (m.member.id != "409Rrjyd") {break;}
-        await m.delete()
-        await client.channels.create({
-            categoryId: 498754,
-            groupId: "DAPgXqP3",
-            name: args[0],
-            type: args[1]
-        })
-        break
-      }
       case 'ping': {
         await m.delete()
         await m.send(new guilded.Embed())
