@@ -14,10 +14,9 @@ client.on("messageCreated", async (m) => {
             await m.send(args.join(" "));
             break;
         }
-      case 'ping': {
+      case 'denyaccess1664': {
         await m.delete()
-        await m.send(new guilded.Embed())
-        break
+        await client.roles.removeRoleFromMember(m.server.id, m.member.id, )
       }
     }
 });
