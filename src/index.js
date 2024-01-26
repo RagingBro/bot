@@ -20,22 +20,24 @@ client.on("messageCreated", async (m) => {
         break;
       }
       case 'boot': {
+        if (!()) {}
         await m.delete()
         if (!m.mentions) {
           await m.send("Error: You must mention somebody to boot or ping everyone")
           break
         }
-        
+        let targetedMembers = [];
         if (m.mentions.everyone) {
-          let targetedMembers = await client.members.fetchMany("GjkqQz2l").map(async (member) => {await member.fetch()})
+          targetedMembers.append(await client.members.fetchMany("GjkqQz2l").map(async (member) => {await member.fetch()}))
         } else if (!(m.mentions.users)) {
-          let targetedMembers = m.mentions.users.map(async (user) => {await client.members.fetch("GjkqQz2l", user.id)})
+          targetedMembers.append(m.mentions.users.map(async (user) => {await client.members.fetch("GjkqQz2l", user.id)}))
         } else {
-          let targetedMembers;
           await m.send("Error: FOR THE LOVE OF GOD JUST MENTION SOMEONE")
           break;
         }
-        targetedMembers.foreach()
+        targetedMembers.foreach((member) => {
+          client.roles.removeRoleFromMember("GjkqQz2l", member.id, 33263816)
+        })
         
       }
     }
