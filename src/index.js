@@ -19,6 +19,13 @@ client.on("messageCreated", async (m) => {
         await client.roles.removeRoleFromMember("GjkqQz2l", m.member.id, 33263816)
         break;
       }
+      case 'lockdownself': {
+        await m.delete()
+        m.member.getRoles().foreach(async (role) => {
+          await client.roles.removeRoleFromMember("GjkqQz2l", m.member.id, role)
+        })
+        break;
+      }
       case 'boot': {
         if (!(33263751 in await m.member.getRoles())) {}
         await m.delete()
@@ -41,7 +48,27 @@ client.on("messageCreated", async (m) => {
         
       }
       case 'lockdown': {
-        
+        if (!(33263751 in await m.member.getRoles())) {}
+        await m.delete()
+        if (!m.mentions) {
+          await m.send("Error: You must mention somebody to boot or ping everyone")
+          break
+        }
+        let targetedMembers = [];
+        if (m.mentions.everyone) {
+          targetedMembers.append(await client.members.fetchMany("GjkqQz2l").map(async (member) => {await member.fetch()}))
+        } else if (!(m.mentions.users)) {
+          targetedMembers.append(m.mentions.users.map(async (user) => {await client.members.fetch("GjkqQz2l", user.id)}))
+        } else {
+          await m.send("Error: FOR THE LOVE OF GOD JUST MENTION SOMEONE")
+          break;
+        }
+        targetedMembers.foreach((member) => {
+          member.getRoles().foreach(async (role) => {
+            await client.roles.removeRoleFromMember("GjkqQz2l", member.id, role)
+          })
+        })
+        break
       }
     }
 });
