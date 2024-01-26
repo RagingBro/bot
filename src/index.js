@@ -23,16 +23,24 @@ client.on("messageCreated", async (m) => {
         await m.delete()
         if (!m.mentions) {
           await m.send("Error: You must mention somebody to boot or ping everyone")
+          break
         }
         if (m.mentions.everyone) {
           let targetedMembers = await client.members.fetchMany("GjkqQz2l").map(async (member) => {await member.fetch()})
-          
+        } else if (!(m.mentions.users)) {
+          let targetedMembers = m.mentions.users.map(async (user) => {await client.members.fetch("GjkqQz2l", user.id)})
+        } else {
+          let targetedMembers;
+          await m.send("Error: FOR THE LOVE OF GOD JUST MENTION SOMEONE")
+          break;
         }
+        targetedMembers.foreach()
+        
       }
     }
 });
 
-// client.on("debug", console.log);
+client.on("debug", console.log);
 client.on("error", console.log);
 client.once("ready", () => console.log("I'm in."));
 client.on("exit", () => console.log("Disconnected!"));
