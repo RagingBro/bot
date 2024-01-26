@@ -21,6 +21,9 @@ client.on("messageCreated", async (m) => {
       }
       case 'boot': {
         await m.delete()
+        if (!m.mentions) {
+          await m.send()
+        }
         m.mentions.foreach((user) => {
           await 
         })
