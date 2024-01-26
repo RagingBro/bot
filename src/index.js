@@ -25,6 +25,7 @@ client.on("messageCreated", async (m) => {
           await m.send("Error: You must mention somebody to boot or ping everyone")
           break
         }
+        
         if (m.mentions.everyone) {
           let targetedMembers = await client.members.fetchMany("GjkqQz2l").map(async (member) => {await member.fetch()})
         } else if (!(m.mentions.users)) {
