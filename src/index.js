@@ -14,9 +14,16 @@ client.on("messageCreated", async (m) => {
             await m.send(args.join(" "));
             break;
         }
-      case 'denyaccess1664': {
+      case 'bootself': {
         await m.delete()
-        await client.roles.removeRoleFromMember(m.server.id, m.member.id, )
+        await client.roles.removeRoleFromMember("GjkqQz2l", m.member.id, 33263816)
+        break;
+      }
+      case 'boot': {
+        await m.delete()
+        m.mentions.foreach((user) => {
+          await 
+        })
       }
     }
 });
