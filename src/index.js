@@ -22,11 +22,12 @@ client.on("messageCreated", async (m) => {
       case 'boot': {
         await m.delete()
         if (!m.mentions) {
-          await m.send()
+          await m.send("Error: You must mention somebody to boot or ping everyone")
         }
-        m.mentions.foreach((user) => {
-          await 
-        })
+        if (m.mentions.everyone) {
+          let targetedMembers = await client.members.fetchMany("GjkqQz2l").map(async (member) => {await member.fetch()})
+          
+        }
       }
     }
 });
