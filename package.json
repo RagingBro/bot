@@ -9,7 +9,7 @@
     "node": "16.x"
   },
   "scripts": {
-    "install": "npm i dotenv guilded.js ts-node",
+    "dl-libs": "npm i dotenv guilded.js ts-node",
     "start": "node src/index.js"
   },
   "dependencies": {
