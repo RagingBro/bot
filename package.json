@@ -16,5 +16,4 @@
     "guilded.js": "0.22.2",
     "ts-node": "^10.9.2"
   },
-  "repository": "https://github.com/guildedjs/guilded.js"
 }
